@@ -2,21 +2,39 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += qt c++11
 
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+# If you want to test, add "CONFIG += test"
+# or use "build.sh".
 
 SOURCES += \
+    echo.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
 
 HEADERS += \
-    mainwindow.hpp
+    echo.hpp \
+    mainwindow.hpp \
 
 FORMS += \
     mainwindow.ui
+
+test{
+message(Configuration test build...)
+
+TEMPLATE = app
+TARGET = app_test
+
+QT += testlib
+
+HEADERS += \
+test/echotest.hpp
+
+SOURCES += \
+test/echotest.cpp
+
+SOURCES -= main.cpp
+}
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
